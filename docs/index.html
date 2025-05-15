@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Universal ERC4626 Frontend</title>
+	<meta name="description" content="Universal ERC4626 Frontend supporting wrapping & unwrapping of any ERC4626 - Powered by Eliteness.Network!">
+	<meta name="keywords" content="Guru Network, Decentralized Finance, Fantom, ELITE, 1337, defi, farming, FTM1337">
+    <link rel="shortcut icon" href="https://ftm.guru/icons/eliteness.png">
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+
+    <div id="note" class="overlay">
+        <div class="popup">
+            <a class="close" href="#">&times;</a>
+            <div class="content" id="content1">
+                Welcome!
+            </div>
+        </div>
+    </div>
+
+    <div class="topnav">
+        <div class="topnav-left">
+            <a href="https://eliteness.network/">
+                <img src="https://ftm.guru/icons/eliteness.png" alt="Logo" height="48px">
+            </a>
+            <a href="https://eliteness.network">ELITENESS<br>NETWORK</a>
+        </div>
+        <!--
+        <div class="topnav-right">
+            <p id="p_cw">
+                <span id="cw" onclick="cw()"><button id="cw_og" class="submit equal-gradient">Connect wallet</button></span>
+            </p>
+        </div>
+        -->
+    </div>
+
+    <div id="main-area">
+        <div class="headline">
+        	<a href=".." style="text-decoration:none;">
+            	<div class="headline-keyword">ERC4626 Frontend</div>
+				<div>Universal wrapper & unwrapper for all ERC4626 assets!</div>
+				<br>
+				<div style="display:grid;grid-template-columns:auto auto;display:none">
+					<img src="back.svg" style="width: 32px;">
+					<div id="headline-props" style="text-align: right;font-family: bold;">ELMA Pool</div>
+				</div>
+            </a>
+        </div>
+        <!-- <div class="page-heading">
+            <img src="https://ftm.guru/icons/lock.svg" alt="Lock Icon">
+            <a href="https://eliteness.network/elma">eLOCKS</a>
+            ≻ <a>Overview</a>
+        </div> -->
+
+        <div class="topstats">
+            <div class="topstat">
+                <div id="topstat-ts-sh">-.--</div>
+                <div>Total Shares or Receipts<br>(<span id="l-sh-1"></span> Supply)</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-aum-as">-.--</div>
+                <div>Total Assets or Underlying<br>(<span id="l-as-1"></span> Supply)</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-ratio">-.--</div>
+                <div>Assets per Share<br>(<span id="l-as-2"></span> per <span id="l-sh-2"></span>)</div>
+            </div>
+            <div class="topstat">
+                <div id="topstat-dom">-.--</div>
+                <div>ERC4626 Dominance<br>(% of Underlying Asset)</div>
+            </div>
+        </div>
+
+		<br><br>
+
+        <div class="c2a">
+            <form>
+                <h2>ERC4626 : Universal Frontend</h2>
+				<br><br>
+                <div class="form-item-container">
+                    <label for="">1. Connect</label>
+                    <div class="hint">
+                    	Switch in your wallet to your desired chain first,
+                    	<br>
+                    	then Connect your wallet to this Dapp.
+                    </div>
+            		<p id="p_cw">
+                		<span id="cw" onclick="cw()"><button id="cw_og" class="submit equal-gradient">Connect wallet</button></span>
+            		</p>
+                </div>
+                <br><br>
+                <div class="form-item-container">
+                    <label for="">2. Load ERC4626</label>
+                    <div class="hint" id="zap-bal">Enter the Contract address of ERC4626 asset</div>
+                	<input required class="in-box" id="inp-addr" placeholder="0x1337babe...">
+                </div>
+                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="dexstats()">Load ERC4626</div>
+                <br><br>
+
+                <br><br>
+                <div class="hhr"></div>
+                <br><br>
+
+                <h2>Wrap & Unwrap ERC4626</h2>
+				<br><br>
+                <div class="form-item-container">
+                    <label for="">
+						Deposit <span id="l-as-3"></span> (asset)
+						<br>Get <span id="l-sh-3"></span> (receipt)
+					</label>
+					<br><br>
+                    <div class="hint">Balance: <span id="l-as-bal">-.--</span></div>
+                    <div class="hint">Approval: <span id="l-as-allw">-.--</span></div>
+                    <input required class="in-box" id="zap-amt" type="number" placeholder="1337" step="1" min="1">
+                </div>
+                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(false)">Deposit</div>
+                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(true)">Deposit All</div>
+
+                <br><br><br><br>
+                <div class="form-item-container">
+                    <label for="">
+                    	Withdraw <span id="l-sh-4"></span> (receipt)
+                    	<br>Get <span id="l-as-4"></span> (asset)
+                    </label>
+					<br><br>
+                    <div class="hint">Balance: <span id="l-sh-bal">-.--</span></div>
+                    <input required class="in-box" id="zap-amt" type="number" placeholder="1337" step="1" min="1">
+                </div>
+                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(false)">Withdraw</div>
+                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(true)">Withdraw All</div>
+                <br><br>
+            </form>
+        </div>
+
+
+        <footer>
+        	<h3>Explore related Smart Contracts</h3>
+        	<div id="footer-contracts">
+        	</div>
+        	<br><br>
+        	<h2>Powered by Guru Network</h2>
+        	<div class="social">
+            	<a target="_blank" href="https://discord.gg/QpyfMarNrV"><img src="https://ftm.guru/icons/discord.svg" alt="Discord"></a>
+            	<a target="_blank" href="https://twitter.com/FTM1337"><img src="https://ftm.guru/icons/twitter.svg" alt="Twitter"></a>
+            	<a target="_blank" href="https://dune.com/eliteness"><img src="https://ftm.guru/icons/dune.svg" alt="Dune"></a>
+            	<a target="_blank" href="https://defillama.com/protocol/guru-network-dao"><img src="https://ftm.guru/icons/defillama.svg" alt="Defillama"></a>
+            	<a target="_blank" href="https://coinmarketcap.com/currencies/elite-1337"><img src="https://ftm.guru/icons/cmc.svg" alt="CoinMarketCap"></a>
+            	<a target="_blank" href="https://ftm.guru/docs"><img src="https://ftm.guru/icons/docs.svg" alt="Docs"></a>
+        	</div>
+		</footer>
+
+    </div>
+
+    <!-- Ignore Below Block : Dev Logs -->
+    <div style="display:none">
+        <span id="cw_m"></span>
+        <div id="connect">
+            Please connect your web3 wallet.
+            <button onclick="cw()" id="btn-connect">Connect</button>
+        </div>
+        <div id="switch">
+            <b id="btn-switch" onclick="cw()">
+                <span id="cw"></span>
+            </b>
+            <div>Balance: <b id="usb-mtv">?</b> USDC</div>
+            <span>Wallet at Fantom Opera. <a href="index.html" style="color:aqua;">Change?</a></span>
+        </div>
+    </div>
+    <!-- Ignore Above Block : Dev Logs -->
+
+    <script src="https://ftm.guru/ethers-5.2.umd.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+        RPC_URL = "https://rpc.soniclabs.com";
+        CHAINID = 146;
+        CHAIN_NAME = "Sonic";
+        CHAIN_GAS = "S";
+        DECIMAL = 6;
+        EXPLORE = "https://sonicscan.org/";
+        EXPLORT = EXPLORE + "tx/";
+        EXPLORA = EXPLORE + "address/";
+        TVLGURU = "0x2696f94f11dfF0d77875E2652FCdB537274B9CE7";
+        NATIVE = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+        NATIVE_NAME = "S";
+        NATIVE_LOGO = "https://ftm.guru/icons/sonic.png";
+        LOGOS = "https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/";
+
+		SCT = "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae";
+		SCT_NAME = "scUSD";
+		SCT_LOGO = LOGOS + SCT.toLowerCase() + ".png";
+		SCT_DEC = 6;
+
+BASE = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba";
+		BASE_NAME = "stkscUSD";
+		BASE_LOGO = LOGOS + "0xd3dce716f3ef535c5ff8d041c1a41c3bd89b97ae" + ".png";
+		BASE_DEC = 6;
+
+		VENFT = "0x0966CAE7338518961c2d35493D3EB481A75bb86B";
+		VENFT_NAME = "veUSD";
+		VENFT_LOGO = LOGOS + SCT.toLowerCase() + ".png";
+		VENFT_DEC = 6;
+		VENFT_MAXTIME = 365 * 24 * 60 * 60;
+
+		WRAP = "0xd4aa386bfceeedd9de0875b3ba07f51808592e22";
+		WRAP_NAME = "eliteRingsScUSD";
+		WRAP_LOGO = LOGOS + WRAP.toLowerCase() + ".png";
+		WRAP_DEC = 6;
+
+		VOTER = "0xB84194E28f624BBBA3C9181F3a1120eE76469337";
+		SAFE_ADDR = "0x0000000000000000000000000000000000001234";
+
+		DEPOSITOR = "0xb0c855a7fb3716ebc1c4505218de4bf2186125ba";
+		ZAP_SCT = "0x7f142a18f1B476809c4994C63811feF4afD14134";
+
+		STKSCT_TELLER = "0x5e39021ae7d3f6267dc7995bb5dd15669060dae0"
+
+		FARM = "";
+		TEARNED = [];
+		TEARNED_LOGO = [];
+		TEARNED_NAME = [];
+
+
+		MARKET_NAME = "Rings";
+		MARKET_LOGO = "https://ftm.guru/icons/rings.png";
+
+		CTOKEN = "0x4D85bA8c3918359c78Ed09581E5bc7578ba932ba"; 	//stkscUSD (without 'w')
+
+
+		DOCS_LINK = "https://ftm.guru/docs/erc4626";
+
+
+		PARTNER_POOLS = [
+		{
+			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+			tokens: [
+				{ name: "xUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x6202b9f02e30e5e1c62cc01e4305450e5d83b926.png" } ,
+				{ name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+			],
+			platforms: [
+				{ name: "Equalizer" , icon:"https://ftm.guru/icons/ftm.svg" , subtext: "DEX" } ,
+			],
+			rewards : [
+				{ name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
+				{ name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
+				{ name: "Stream internal APY" , icon:"https://ftm.guru/icons/streamprotocol.svg" } ,
+			],
+			desc : [
+				{ maintext: "Provide Liquidity to Stableswap 2Pool of xUSD/eliteRingsScUSD" }
+			]
+		} ,
+		{
+			link : "https://sonic.equalizer.exchange/liquidity?search=eliteRingsScUSD",
+			tokens: [
+				{ name: "USDC.e" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0x29219dd400f2bf60e5a23d13be72b486d4038894.png" } ,
+				{ name: "eliteRingsScUSD" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xd4aa386bfceeedd9de0875b3ba07f51808592e22.png" } ,
+			],
+			platforms: [
+				{ name: "Equalizer" , icon:"https://ftm.guru/icons/ftm.svg" , subtext: "DEX" } ,
+			],
+			rewards : [
+				{ name: "EQUAL" , icon:"https://ftm.guru/icons/equal.png" } ,
+				{ name: "DIAMONDS" , icon:"https://cdn.jsdelivr.net/gh/unified-defi/equalizer-tokens@latest/sonic/tokens/128x128/0xdbde38013d44ae23badc4cd8081271b8028ecaf4.png" } ,
+				{ name: "6x Sonic Points" , icon:"https://ftm.guru/icons/sonic.png" } ,
+			],
+			desc : [
+				{ maintext: "Provide Liquidity to Stableswap 2Pool of USDC.e/eliteRingsScUSD" }
+			]
+		} ,
+	]
+    </script>
+</body>
+</html>
