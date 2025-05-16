@@ -378,11 +378,11 @@ async function gubs() {
 
 
 async function stake(ismax) {
-	notify(`Updating latest balances, allowances and Asset & Vault data..`);
+	notice(`Updating latest balances, allowances and Asset & Vault data..`);
 	await dexstats();
 
-	s_v = new ethers.Contract( _ca , IERC4626, signer );
-	s_a = new ethers.Contract( _rdv[0] , IERC4626, signer );
+	s_v = new ethers.Contract( STATE.vault.addr , IERC4626, signer );
+	s_a = new ethers.Contract( STATE.asset.addr , IERC4626, signer );
 
 	al = await Promise.all([
 		STATE.asset.allw,
@@ -435,7 +435,7 @@ async function stake(ismax) {
 		${STATE.vault.symb} Expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
-	let _tr = await (ismax ? _FARM.depositAll() : _FARM.deposit(_oamt));
+	let _tr = await s_v.deposit(_oamt, window.ethereum.selectedAddress);
 	console.log(_tr);
 	notice(`
 		<h3>Order Submitted!</h3>
@@ -456,11 +456,11 @@ async function stake(ismax) {
 }
 
 async function unstake(ismax) {
-	notify(`Updating latest balances, allowances and Asset & Vault data..`);
+	notice(`Updating latest balances, allowances and Asset & Vault data..`);
 	await dexstats();
 
-	s_v = new ethers.Contract( _ca , IERC4626, signer );
-	s_a = new ethers.Contract( _rdv[0] , IERC4626, signer );
+	s_v = new ethers.Contract( STATE.vault.addr , IERC4626, signer );
+	s_a = new ethers.Contract( STATE.asset.addr , IERC4626, signer );
 
 	al = await Promise.all([
 		STATE.vault.ubal
@@ -489,7 +489,7 @@ async function unstake(ismax) {
 
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
-	let _tr = await (ismax ? _FARM.withdrawAll() : _FARM.withdraw(_oamt));
+	let _tr = await s_v.redeem(_oamt, window.ethereum.selectedAddress, window.ethereum.selectedAddress);
 	console.log(_tr);
 	notice(`
 		<h3>Order Submitted!</h3>
