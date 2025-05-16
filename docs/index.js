@@ -315,8 +315,8 @@ async function dexstats() {
 	$("footer-contracts").innerHTML = `
 		<div class="grid-two-col">
 			<div>
-				<a target="_blank" href="https://chainlist.org/?testnets=true&search=${Number(window.ethereum.chainid)}">
-					View Chain ID ${Number(window.ethereum.chainid)} on Chainlist
+				<a target="_blank" href="https://chainlist.org/?testnets=true&search=${Number(window.ethereum.chainId)}">
+					View Chain ID ${Number(window.ethereum.chainId)} on Chainlist
 				</a>
 			</div>
 			<div>${STATE.asset.symb} ・ ${STATE.asset.addr}</div>
@@ -334,8 +334,8 @@ async function dexstats() {
 	$("topstat-dom").innerHTML = ( STATE.vault.dom ).toFixed(6)+"%";
 
 
-	$("l-sh-bal").innerHTML = fornum7(STATE.asset.ubal, STATE.asset.deci, STATE.asset.deci);
-	$("l-as-bal").innerHTML = fornum7(STATE.vault.ubal, STATE.vault.deci, STATE.vault.deci);
+	$("l-as-bal").innerHTML = fornum7(STATE.asset.ubal, STATE.asset.deci, STATE.asset.deci);
+	$("l-sh-bal").innerHTML = fornum7(STATE.vault.ubal, STATE.vault.deci, STATE.vault.deci);
 	$("l-as-allw").innerHTML = (STATE.asset.ubal <= STATE.asset.allw) ? "Granted" : "Required";
 
     const _hiddens = document.getElementsByClassName("hidden");
@@ -433,7 +433,7 @@ async function stake(ismax) {
 		<h3>Order Summary</h3>
 		<b>Staking ${STATE.asset.symb}</b><br>
 		${STATE.asset.symb} to Stake: <b>${fornum5(_oamt,STATE.asset.deci)}</b><br>
-		${STATE.vault.symb} Expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
+		${STATE.vault.symb} expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
 	let _tr = await s_v.deposit(_oamt, window.ethereum.selectedAddress);
@@ -441,7 +441,7 @@ async function stake(ismax) {
 	notice(`
 		<h3>Order Submitted!</h3>
 		<h4>Staking ${STATE.asset.symb}</h4>
-		${STATE.vault.symb} Expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
+		${STATE.vault.symb} expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
 		${STATE.asset.symb} Staking: <b>${fornum5(_oamt,STATE.asset.deci)}</b>
 		<br><br>Transaction hash: ${_tr.hash}
 	`);
@@ -450,7 +450,7 @@ async function stake(ismax) {
 	notice(`
 		<h3>Order Completed!</h3>
 		${STATE.asset.symb} Staked: <b>${fornum5(_oamt,STATE.asset.deci)}</b>
-		${STATE.vault.symb} Expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
+		${STATE.vault.symb} expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
 		<br><br>Transaction hash: ${_tr.hash}
 	`);
 	gubs();
@@ -485,8 +485,8 @@ async function unstake(ismax) {
 		<h3>Order Summary</h3>
 		<b>Withdrawing ${STATE.vault.symb}</b><br>
 
-		${STATE.vault.symb} to Redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
-		${STATE.asset.symb} Expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b><br>
+		${STATE.vault.symb} to redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
+		${STATE.asset.symb} expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b><br>
 
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
@@ -495,16 +495,16 @@ async function unstake(ismax) {
 	notice(`
 		<h3>Order Submitted!</h3>
 		<h4>Unstaking ${STATE.vault.symb}</h4>
-		${STATE.vault.symb} to Redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
-		${STATE.asset.symb} Expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b>
+		${STATE.vault.symb} to redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
+		${STATE.asset.symb} expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b>
 		<br><br>Transaction hash: ${_tr.hash}
 	`);
 	_tw = await _tr.wait();
 	console.log(_tw)
 	notice(`
 		<h3>Order Completed!</h3>
-		${STATE.vault.symb} to Redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
-		${STATE.asset.symb} Expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b>
+		${STATE.vault.symb} to redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
+		${STATE.asset.symb} expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b>
 		<br><br>Transaction hash: ${_tr.hash}
 	`);
 	gubs();
