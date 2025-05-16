@@ -46,12 +46,12 @@ function openTab(evt, tabName) {
 
 
 async function basetrip() {
-	provider = new ethers.providers.JsonRpcProvider("https://base.llamarpc.com")//https://mainnet.base.org");
-	if(window.ethereum) window.ethereum.selectedAddress="0x167d87a906da361a10061fe42bbe89451c2ee584"
-	else window.ethereum = {selectedAddress:"0x167d87a906da361a10061fe42bbe89451c2ee584"}
-	await dexstats();
+	////provider = new ethers.providers.JsonRpcProvider("https://base.llamarpc.com")//https://mainnet.base.org");
+	////if(window.ethereum) window.ethereum.selectedAddress="0x167d87a906da361a10061fe42bbe89451c2ee584"
+	////else window.ethereum = {selectedAddress:"0x167d87a906da361a10061fe42bbe89451c2ee584"}
+	////await dexstats();
 	/////////////
-	return;
+	////return;
 
 	if(!(window.ethereum)){
 		$("cw_m").innerHTML = "Wallet wasn't detected!";console.log("Wallet wasn't detected!");notice("<h3>Wallet wasn't detected!</h3>Please make sure that your device and browser have an active Web3 wallet like MetaMask installed and running.<br><br>Visit <a href='https://metamask.io' target='_blank'>metamask.io</a> to install MetaMask wallet.");
@@ -129,8 +129,9 @@ async function cw2() {
     //try{await provider.send("eth_requestAccounts", []);console.log("CWE:",e);}//await window.ethereum.enable();
 	//catch(e){console.log("CWE:",e);window.location.reload(true)}
 	console.log("doing the paints")
-	$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);
-	if(window.ethereum.chainId==250) (new ethers.Contract("0x14ffd1fa75491595c6fd22de8218738525892101",["function getNames(address) public view returns(string[] memory)"],provider)).getNames(window.ethereum.selectedAddress).then(rn=>{if(rn.length>0){$("cw").innerHTML="hi, <span style='/*font-family:bold;font-size:1.337em*/'>"+rn[0]+"</span> 👋"}else{$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);}})
+	$("cw").innerHTML= `<div>Connected to your Wallet <br> ${window.ethereum.selectedAddress}</div>
+	//$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);
+	//if(window.ethereum.chainId==250) (new ethers.Contract("0x14ffd1fa75491595c6fd22de8218738525892101",["function getNames(address) public view returns(string[] memory)"],provider)).getNames(window.ethereum.selectedAddress).then(rn=>{if(rn.length>0){$("cw").innerHTML="hi, <span style='/*font-family:bold;font-size:1.337em*/'>"+rn[0]+"</span> 👋"}else{$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);}})
 	$("cw_m").innerHTML=""
 	$("connect").style.display="none";
 	$("switch").style.display="block";
