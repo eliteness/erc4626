@@ -234,7 +234,7 @@ IERC4626 = [
 	"function convertToShares(uint assets) external view returns(uint shares)",
 	"function convertToAssets(uint shares) external view returns(uint assets)",
 
-	"function approce(address, uint) external",
+	"function approve(address, uint) external",
 	"function deposit(uint assets, address receiver) external returns(uint shares)",
 	"function mint(uint shares, address receiver) external returns(uint assets)",
 	"function withdraw(uint assets, address receiver, address owner) external returns(uint shares)",
