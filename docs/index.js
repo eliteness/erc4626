@@ -234,10 +234,10 @@ IERC4626 = [
 	"function convertToShares(uint assets) external view returns(uint shares)",
 	"function convertToAssets(uint shares) external view returns(uint assets)",
 
-	"function deposit(uint assets, address receiver) external view returns(uint shares)",
-	"function mint(uint shares, address receiver) external view returns(uint assets)",
-	"function withdraw(uint assets, address receiver, address owner) external view returns(uint shares)",
-	"function redeem(uint shares, address receiver, address owner) external view returns(uint assets)",
+	"function deposit(uint assets, address receiver) external returns(uint shares)",
+	"function mint(uint shares, address receiver) external returns(uint assets)",
+	"function withdraw(uint assets, address receiver, address owner) external returns(uint shares)",
+	"function redeem(uint shares, address receiver, address owner) external returns(uint assets)",
 ]
 
 async function paintStatic(_params) {
@@ -399,11 +399,11 @@ async function stake(ismax) {
 	else {
 		_oamt = $("stake-amt").value;
 		if(!isFinite(_oamt) || _oamt<1/(10**STATE.asset.deci)){notice(`Invalid ${STATE.asset.symb} amount!`); return;}
-		_oamt = BigInt(Math.floor(_oamt * (10**DECIMAL)))
+		_oamt = BigInt(Math.floor(_oamt * (10**STATE.asset.deci)))
 	}
 
 
-	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**STATE.asset.deci)}<br><h3>Actual Balance:</h3>${Number(al[1])/(10**DECIMAL)}<br><br><b>Please reduce the amount and retry again, or accumulate some more ${STATE.asset.symb}.`);return}
+	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**STATE.asset.deci)}<br><h3>Actual Balance:</h3>${Number(al[1])/(10**STATE.asset.deci)}<br><br><b>Please reduce the amount and retry again, or accumulate some more ${STATE.asset.symb}.`);return}
 
 	if(Number(_oamt)>Number(al[0])){
 		notice(`
@@ -479,7 +479,7 @@ async function unstake(ismax) {
 		_oamt = BigInt(Math.floor(_oamt * (10**STATE.vault.deci)));
 	}
 
-	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Staked Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**STATE.vault.deci)}<br><h3>Actual Staked Balance:</h3>${al[1]/(10**DECIMAL)}<br><br><b>Please reduce the amount and retry again, or Stake some more ${WRAP_NAME}.`); return}
+	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Staked Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**STATE.vault.deci)}<br><h3>Actual Staked Balance:</h3>${al[1]/(10**STATE.vault.deci)}<br><br><b>Please reduce the amount and retry again, or Stake some more ${WRAP_NAME}.`); return}
 
 	notice(`
 		<h3>Order Summary</h3>
