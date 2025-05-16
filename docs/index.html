@@ -54,7 +54,7 @@
             ≻ <a>Overview</a>
         </div> -->
 
-        <div class="topstats">
+        <div class="topstats hidden">
             <div class="topstat">
                 <div id="topstat-ts-sh">-.--</div>
                 <div>Total Shares or Receipts<br>(<span id="l-sh-1"></span> Supply)</div>
@@ -99,46 +99,51 @@
                 <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="dexstats()">Load ERC4626</div>
                 <br><br>
 
-                <br><br>
-                <div class="hhr"></div>
-                <br><br>
 
-                <h2>Wrap & Unwrap ERC4626</h2>
-				<br><br>
-                <div class="form-item-container">
-                    <label for="">
-						Deposit <span id="l-as-3"></span> (asset)
-						<br>Get <span id="l-sh-3"></span> (receipt)
-					</label>
-					<br><br>
-                    <div class="hint">Balance: <span id="l-as-bal">-.--</span></div>
-                    <div class="hint">Approval: <span id="l-as-allw">-.--</span></div>
-                    <input required class="in-box" id="zap-amt" type="number" placeholder="1337" step="1" min="1">
-                </div>
-                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(false)">Deposit</div>
-                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(true)">Deposit All</div>
+                <div class="hidden">
+	                <br><br>
+                	<div class="hhr"></div>
+                	<br><br>
 
-                <br><br><br><br>
-                <div class="form-item-container">
-                    <label for="">
-                    	Withdraw <span id="l-sh-4"></span> (receipt)
-                    	<br>Get <span id="l-as-4"></span> (asset)
-                    </label>
+                	<h2>Wrap & Unwrap ERC4626</h2>
 					<br><br>
-                    <div class="hint">Balance: <span id="l-sh-bal">-.--</span></div>
-                    <input required class="in-box" id="zap-amt" type="number" placeholder="1337" step="1" min="1">
-                </div>
-                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(false)">Withdraw</div>
-                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="wrap(true)">Withdraw All</div>
-                <br><br>
-            </form>
+                	<div class="form-item-container">
+                    	<label for="">
+							Deposit <span id="l-as-3"></span> (asset)
+							<br>Get <span id="l-sh-3"></span> (receipt)
+						</label>
+						<br><br>
+                    	<div class="hint">Balance: <span id="l-as-bal">-.--</span></div>
+                    	<div class="hint">Approval: <span id="l-as-allw">-.--</span></div>
+                    	<input required class="in-box" id="zap-amt" type="number" placeholder="1337" step="1" min="1">
+                	</div>
+                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(false)">Deposit</div>
+                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(true)">Deposit All</div>
+
+                	<br><br><br><br>
+                	<div class="form-item-container">
+                    	<label for="">
+                    		Withdraw <span id="l-sh-4"></span> (receipt)
+                    		<br>Get <span id="l-as-4"></span> (asset)
+                    	</label>
+						<br><br>
+                    	<div class="hint">Balance: <span id="l-sh-bal">-.--</span></div>
+                    	<input required class="in-box" id="zap-amt" type="number" placeholder="1337" step="1" min="1">
+                	</div>
+                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(false)">Withdraw</div>
+                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(true)">Withdraw All</div>
+                	<br><br>
+	            </div>
+           	</form>
         </div>
 
 
         <footer>
-        	<h3>Explore related Smart Contracts</h3>
-        	<div id="footer-contracts">
-        	</div>
+        	<div class="hidden">
+				<h3>Explore related Smart Contracts</h3>
+        		<div id="footer-contracts">
+        		</div>
+            </div>
         	<br><br>
         	<h2>Powered by Guru Network</h2>
         	<div class="social">

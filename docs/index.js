@@ -80,41 +80,6 @@ async function basetrip() {
 
 
 
-/*
-function fornum(n,d)
-{
-	_n=(Number(n)/10**Number(d));
-	n_=_n;
-	if(_n>1e18){n_=(_n/1e18).toFixed(2)+" Qt."}
-	else if(_n>1e15){n_=(_n/1e15).toFixed(2)+" Qd."}
-	else if(_n>1e12){n_=(_n/1e12).toFixed(2)+" Tn."}
-	else if(_n>1e9){n_=(_n/1e9).toFixed(2)+" Bn."}
-	else if(_n>1e6){n_=(_n/1e6).toFixed(2)+" Mn."}
-	else if(_n>1e3){n_=(_n/1e3).toFixed(2)+" Th."}
-	else if(_n>0){n_=(_n/1e0).toFixed(5)+""}
-	return(n_);
-}
-*/
-function fornum(n,d) {
-	_n=(Number(n)/10**Number(d));
-	n_=_n;
-	if(_n>1e18){n_=(_n/1e18).toFixed(2)+"Qt"}
-	else if(_n>1e15){n_=(_n/1e15).toFixed(2)+"Qd"}
-	else if(_n>1e12){n_=(_n/1e12).toFixed(2)+"T"}
-	else if(_n>1e9){n_=(_n/1e9).toFixed(2)+"B"}
-	else if(_n>1e6){n_=(_n/1e6).toFixed(2)+"M"}
-	else if(_n>1e3){n_=(_n/1e3).toFixed(2)+"K"}
-	else if(_n>1e0){n_=(_n/1e0).toFixed(5)+""}
-	else if(_n>0.0){n_=(_n/1e0).toFixed(8)+""}
-	return(n_);
-}
-function fornum5(n,d) {
-	return (Number(n)/10**Number(d)).toLocaleString(undefined,{maximumFractionDigits:d}) ;
-}
-function fornum6(n,f) {
-	return (Number(n)).toLocaleString(undefined,{maximumFractionDigits:f}) ;
-}
-
 async function cw() {
 	let cs = await cw2(); cs?console.log("Good to Transact"):cw2();
 	cw2();
@@ -173,8 +138,36 @@ async function cw2() {
 	gubs();
 	return(1);
 }
-function fornum2(n,d)
+
+/*
+function fornum(n,d)
 {
+	_n=(Number(n)/10**Number(d));
+	n_=_n;
+	if(_n>1e18){n_=(_n/1e18).toFixed(2)+" Qt."}
+	else if(_n>1e15){n_=(_n/1e15).toFixed(2)+" Qd."}
+	else if(_n>1e12){n_=(_n/1e12).toFixed(2)+" Tn."}
+	else if(_n>1e9){n_=(_n/1e9).toFixed(2)+" Bn."}
+	else if(_n>1e6){n_=(_n/1e6).toFixed(2)+" Mn."}
+	else if(_n>1e3){n_=(_n/1e3).toFixed(2)+" Th."}
+	else if(_n>0){n_=(_n/1e0).toFixed(5)+""}
+	return(n_);
+}
+*/
+function fornum(n,d) {
+	_n=(Number(n)/10**Number(d));
+	n_=_n;
+	if(_n>1e18){n_=(_n/1e18).toFixed(2)+"Qt"}
+	else if(_n>1e15){n_=(_n/1e15).toFixed(2)+"Qd"}
+	else if(_n>1e12){n_=(_n/1e12).toFixed(2)+"T"}
+	else if(_n>1e9){n_=(_n/1e9).toFixed(2)+"B"}
+	else if(_n>1e6){n_=(_n/1e6).toFixed(2)+"M"}
+	else if(_n>1e3){n_=(_n/1e3).toFixed(2)+"K"}
+	else if(_n>1e0){n_=(_n/1e0).toFixed(5)+""}
+	else if(_n>0.0){n_=(_n/1e0).toFixed(8)+""}
+	return(n_);
+}
+function fornum2(n,d) {
 	_n=(Number(n)/10**Number(d));
 	n_=_n;
 	if(_n>1e18){n_=(_n/1e18).toFixed(2)+" Quintillion"}
@@ -188,6 +181,24 @@ function fornum2(n,d)
 	return(n_);
 }
 
+
+function fornum5(n,d) { // full flex
+	return (Number(n)/10**Number(d)).toLocaleString(undefined,{maximumFractionDigits:d}) ;
+}
+function fornum6(n,f) {
+	return (Number(n)).toLocaleString(undefined,{maximumFractionDigits:f}) ;
+}
+// use f when thousands separator is in play, else use f=4 default
+function fornum7(n,d,f) {
+	let _num = (Number(n)/10**Number(d));
+	f = (f == undefined) ? 0 : f;
+	return (
+		(_num < 1e3)
+			? _num.toLocaleString(undefined,{ maximumFractionDigits: ((f>4) ? f : 4) })
+			: _num.toLocaleString(undefined,{ maximumFractionDigits: f })
+		)
+	;
+}
 
 function notice(c) {
 	window.location = "#note"
@@ -285,6 +296,8 @@ async function dexstats() {
 		allw : BigInt(_rda[5])
 	}
 
+	STATE.vault.dom = ( Number(STATE.vault.aaum) / Number(STATE.asset.tsup) * 100 ) ;
+	STATE.vault.ratio = ( (Number(STATE.vault.aaum)/10**Number(STATE.asset.deci)) / (Number(STATE.vault.tsup)/10**Number(STATE.vault.deci))  )
 
 	$("l-as-1").innerHTML = STATE.asset.symb;
 	$("l-as-2").innerHTML = STATE.asset.symb;
@@ -301,9 +314,9 @@ async function dexstats() {
 	$("footer-contracts").innerHTML = `
 		<div class="grid-two-col">
 			<div>
-				Chain ID
-				・ ${Number(window.ethereum.chainid)}
-				・ <a target="_blank" href="https://chainlist.org/?testnets=true&search=${Number(window.ethereum.chainid)}">View on Chainlist</a>
+				<a target="_blank" href="https://chainlist.org/?testnets=true&search=${Number(window.ethereum.chainid)}">
+					View Chain ID ${Number(window.ethereum.chainid)} on Chainlist
+				</a>
 			</div>
 			<div>${STATE.asset.symb} ・ ${STATE.asset.addr}</div>
 			<div>${STATE.vault.symb} ・ ${STATE.vault.addr}</div>
@@ -313,16 +326,21 @@ async function dexstats() {
 	`;
 
 
-	$("topstat-aum-as").innerHTML = fornum(STATE.vault.aaum, STATE.asset.deci);
+	$("topstat-aum-as").innerHTML = fornum7(STATE.vault.aaum, STATE.asset.deci, 0);
 	//$("topstat-ts-as").innerHTML = fornum(STATE.asset.ts, STATE.asset.deci);
-	$("topstat-ts-sh").innerHTML = fornum(STATE.vault.tsup, STATE.vault.deci);
-	$("topstat-ratio").innerHTML = Number( (STATE.asset.tsup)  ).toFixed(6);
-	$("topstat-dom").innerHTML = ( Number(STATE.vault.aaum) / Number(STATE.vault.tsup) * 100 ).toFixed(6)+"%";
+	$("topstat-ts-sh").innerHTML = fornum7(STATE.vault.tsup, STATE.vault.deci, 0);
+	$("topstat-ratio").innerHTML = ( STATE.vault.ratio ).toFixed(6)+"x";
+	$("topstat-dom").innerHTML = ( STATE.vault.dom ).toFixed(6)+"%";
 
 
-	$("l-sh-bal").innerHTML = fornum(STATE.asset.ubal, STATE.asset.deci);
-	$("l-as-bal").innerHTML = fornum(STATE.vault.ubal, STATE.vault.deci);
+	$("l-sh-bal").innerHTML = fornum7(STATE.asset.ubal, STATE.asset.deci, STATE.asset.deci);
+	$("l-as-bal").innerHTML = fornum7(STATE.vault.ubal, STATE.vault.deci, STATE.vault.deci);
 	$("l-as-allw").innerHTML = (STATE.asset.ubal <= STATE.asset.allw) ? "Granted" : "Required";
+
+    const _hiddens = document.getElementsByClassName("hidden");
+    for (i = _hiddens.length - 1 ; i >= 0 ; i--) {
+        _hiddens[i].className = _hiddens[i].className.replace("hidden", "");
+    }
 
 
 
@@ -363,13 +381,12 @@ async function stake(ismax) {
 	notify(`Updating latest balances, allowances and Asset & Vault data..`);
 	await dexstats();
 
-	_BASE = new ethers.Contract(BASE, LPABI, signer);
-	_WRAP = new ethers.Contract(WRAP, LPABI, signer);
-	_FARM = new ethers.Contract(FARM, LPABI, signer);
+	s_v = new ethers.Contract( _ca , IERC4626, signer );
+	s_a = new ethers.Contract( _rdv[0] , IERC4626, signer );
 
 	al = await Promise.all([
-		_WRAP.allowance(window.ethereum.selectedAddress, FARM),
-		_WRAP.balanceOf(window.ethereum.selectedAddress)
+		STATE.asset.allw,
+		STATE.asset.ubal
 	]);
 
 	_oamt = null;
@@ -380,32 +397,32 @@ async function stake(ismax) {
 
 	else {
 		_oamt = $("stake-amt").value;
-		if(!isFinite(_oamt) || _oamt<1/(10**DECIMAL)){notice(`Invalid ${BASE_NAME} amount!`); return;}
+		if(!isFinite(_oamt) || _oamt<1/(10**STATE.asset.deci)){notice(`Invalid ${STATE.asset.symb} amount!`); return;}
 		_oamt = BigInt(Math.floor(_oamt * (10**DECIMAL)))
 	}
 
 
-	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**DECIMAL)}<br><h3>Actual Balance:</h3>${Number(al[1])/(10**DECIMAL)}<br><br><b>Please reduce the amount and retry again, or accumulate some more ${WRAP_NAME}.`);return}
+	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**STATE.asset.deci)}<br><h3>Actual Balance:</h3>${Number(al[1])/(10**DECIMAL)}<br><br><b>Please reduce the amount and retry again, or accumulate some more ${STATE.asset.symb}.`);return}
 
 	if(Number(_oamt)>Number(al[0])){
 		notice(`
 			<h3>Approval required</h3>
-			Please grant ${WRAP_NAME} allowance.<br><br>
+			Please grant ${STATE.vault.symb} vault required allowance to spend your ${STATE.asset.symb}.<br><br>
 			<h4><u><i>Confirm this transaction in your wallet!</i></u></h4>
 		`);
 		//let _tr = await _WRAP.approve(FARM,_oamt);
-		let _tr = await _WRAP.approve(FARM, ethers.constants.MaxUint256);
+		let _tr = await s_a.approve(STATE.vault.addr, ethers.constants.MaxUint256);
 		console.log(_tr);
 		notice(`
 			<h3>Submitting Approval Transaction!</h3>
-			<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+			Transaction hash: ${_tr.hash}
 		`);
 		_tw = await _tr.wait()
 		console.log(_tw)
 		notice(`
 			<h3>Approval Completed!</h3>
-			<br>Spending rights of ${Number(_oamt)/(10**DECIMAL)} ${WRAP_NAME} granted.<br>
-			<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+			<br>Spending rights of ${Number(_oamt)/(10**STATE.asset.deci)} ${STATE.asset.symb} granted.<br>
+			Transaction hash: ${_tr.hash}
 			<br><br>
 			Please confirm the next step with your wallet provider now.
 		`);
@@ -413,35 +430,42 @@ async function stake(ismax) {
 
 	notice(`
 		<h3>Order Summary</h3>
-		<b>Staking ${WRAP_NAME}</b><br>
-		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> ${WRAP_NAME} to Stake: <b>${fornum5(_oamt,DECIMAL)}</b><br>
+		<b>Staking ${STATE.asset.symb}</b><br>
+		${STATE.asset.symb} to Stake: <b>${fornum5(_oamt,STATE.asset.deci)}</b><br>
+		${STATE.vault.symb} Expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
 	let _tr = await (ismax ? _FARM.depositAll() : _FARM.deposit(_oamt));
 	console.log(_tr);
 	notice(`
 		<h3>Order Submitted!</h3>
-		<h4>Staking ${WRAP_NAME}</h4>
-		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> ${WRAP_NAME} Staking: <b>${fornum5(_oamt,DECIMAL)}</b><br>
-		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+		<h4>Staking ${STATE.asset.symb}</h4>
+		${STATE.vault.symb} Expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
+		${STATE.asset.symb} Staking: <b>${fornum5(_oamt,STATE.asset.deci)}</b>
+		<br><br>Transaction hash: ${_tr.hash}
 	`);
 	_tw = await _tr.wait();
 	console.log(_tw)
 	notice(`
 		<h3>Order Completed!</h3>
-		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> ${WRAP_NAME} Staked: <b>${fornum5(_oamt,DECIMAL)}</b><br>
-		<br><br>
-		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+		${STATE.asset.symb} Staked: <b>${fornum5(_oamt,STATE.asset.deci)}</b>
+		${STATE.vault.symb} Expected: <b>${fornum5( Number(_oamt) / STATE.vault.ratio , STATE.asset.deci)}</b>
+		<br><br>Transaction hash: ${_tr.hash}
 	`);
 	gubs();
 }
 
 async function unstake(ismax) {
-	_FARM = new ethers.Contract(FARM, LPABI,signer);
+	notify(`Updating latest balances, allowances and Asset & Vault data..`);
+	await dexstats();
+
+	s_v = new ethers.Contract( _ca , IERC4626, signer );
+	s_a = new ethers.Contract( _rdv[0] , IERC4626, signer );
 
 	al = await Promise.all([
-		_FARM.balanceOf(window.ethereum.selectedAddress)
+		STATE.vault.ubal
 	]);
+
 
 	_oamt = null;
 
@@ -450,18 +474,18 @@ async function unstake(ismax) {
 	}
 	else {
 		_oamt = $("unstake-amt").value;
-		if(!isFinite(_oamt)){notice(`Invalid ${WRAP_NAME} amount!`); return;}
-		_oamt = BigInt(Math.floor(_oamt * (10**DECIMAL)));
+		if(!isFinite(_oamt)){notice(`Invalid ${STATE.vault.symb} amount!`); return;}
+		_oamt = BigInt(Math.floor(_oamt * (10**STATE.vault.deci)));
 	}
 
-	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Staked Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**DECIMAL)}<br><h3>Actual Staked Balance:</h3>${al[1]/(10**DECIMAL)}<br><br><b>Please reduce the amount and retry again, or Stake some more ${WRAP_NAME}.`); return}
+	if(Number(_oamt)>Number(al[1])) {notice(`<h2>Insufficient Staked Balance!</h2><h3>Desired Amount:</h3>${Number(_oamt)/(10**STATE.vault.deci)}<br><h3>Actual Staked Balance:</h3>${al[1]/(10**DECIMAL)}<br><br><b>Please reduce the amount and retry again, or Stake some more ${WRAP_NAME}.`); return}
 
 	notice(`
 		<h3>Order Summary</h3>
-		<b>Withdrawing ${WRAP_NAME}</b><br>
+		<b>Withdrawing ${STATE.vault.symb}</b><br>
 
-		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> ${WRAP_NAME} to Redeem: <b>${fornum5(_oamt,DECIMAL)}</b><br>
-		<img style='height:20px;position:relative;top:4px' src="${BASE_LOGO}"> ${BASE_NAME} Expected: <b>${fornum5(_oamt,DECIMAL)}</b><br>
+		${STATE.vault.symb} to Redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
+		${STATE.asset.symb} Expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b><br>
 
 		<h4><u><i>Please Confirm this transaction in your wallet!</i></u></h4>
 	`);
@@ -469,17 +493,18 @@ async function unstake(ismax) {
 	console.log(_tr);
 	notice(`
 		<h3>Order Submitted!</h3>
-		<h4>Unstaking ${WRAP_NAME}</h4>
-		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> ${WRAP_NAME} Unstaking: <b>${fornum5(_oamt,DECIMAL)}</b><br>
-		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+		<h4>Unstaking ${STATE.vault.symb}</h4>
+		${STATE.vault.symb} to Redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
+		${STATE.asset.symb} Expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b>
+		<br><br>Transaction hash: ${_tr.hash}
 	`);
 	_tw = await _tr.wait();
 	console.log(_tw)
 	notice(`
 		<h3>Order Completed!</h3>
-		<img style='height:20px;position:relative;top:4px' src="${WRAP_LOGO}"> ${WRAP_NAME} Unstaked: <b>${fornum5(_oamt,DECIMAL)}</b><br>
-		<br><br>
-		<h4><a target="_blank" href="${EXPLORE}/tx/${_tr.hash}">View on Explorer</a></h4>
+		${STATE.vault.symb} to Redeem: <b>${fornum5(_oamt,STATE.vault.deci)}</b><br>
+		${STATE.asset.symb} Expected: <b>${fornum5( Number(_oamt) * STATE.vault.ratio , STATE.vault.deci)}</b>
+		<br><br>Transaction hash: ${_tr.hash}
 	`);
 	gubs();
 }
