@@ -22,31 +22,25 @@
 
     <div class="topnav">
         <div class="topnav-left">
-            <a href="https://eliteness.network/">
-                <img src="https://ftm.guru/icons/eliteness.png" alt="Logo" height="48px">
+            <a href="https://eliteness.network">
+                <img src="https://ftm.guru/icons/eliteness.png" alt="≢">
             </a>
-            <a href="https://eliteness.network">ELITENESS<br>NETWORK</a>
+            <a href="https://eliteness.network">ELITENESS・NETWORK</a>
         </div>
-        <!--
         <div class="topnav-right">
             <p id="p_cw">
                 <span id="cw" onclick="cw()"><button id="cw_og" class="submit equal-gradient">Connect wallet</button></span>
             </p>
         </div>
-        -->
     </div>
 
     <div id="main-area">
         <div class="headline">
-        	<a href=".." style="text-decoration:none;">
+			<img class="headline-logo" src="https://ftm.guru/icons/erc4626.png">
+			<div class="headline-texts">
             	<div class="headline-keyword">ERC4626 Frontend</div>
 				<div>A universal UI to mint & redeem all ERC4626 assets on all chains!</div>
-				<br>
-				<div style="display:grid;grid-template-columns:auto auto;display:none">
-					<img src="back.svg" style="width: 32px;">
-					<div id="headline-props" style="text-align: right;font-family: bold;">ELMA Pool</div>
-				</div>
-            </a>
+			</div>
         </div>
         <!-- <div class="page-heading">
             <img src="https://ftm.guru/icons/lock.svg" alt="Lock Icon">
@@ -80,15 +74,15 @@
                 <h2>ERC4626 : Universal Frontend</h2>
 				<br><br>
                 <div class="form-item-container">
-                    <label for="">1. Connect</label>
+                    <label for="">1. Switch ChainConnect</label>
                     <div class="hint">
-                    	Switch your wallet to desired chain & refresh first,
-                    	<br>
-                    	then Connect your wallet bellow to this Dapp.
+                    	Manually Switch Chain in your wallet first & refresh this page. Then Connect your wallet.
                     </div>
+                    <!--
             		<p id="p_cw">
                 		<span id="cw" onclick="cw()"><button id="cw_og" class="submit equal-gradient">Connect wallet</button></span>
             		</p>
+            		-->
                 </div>
                 <br><br>
                 <div class="form-item-container">
@@ -96,7 +90,9 @@
                     <div class="hint" id="zap-bal">Enter the Contract address of ERC4626 asset</div>
                 	<input required class="in-box" id="inp-addr" placeholder="0x1337babe...">
                 </div>
-                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="dexstats()">Load ERC4626</div>
+                <div class="c2a-one-button">
+	                <div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="dexstats()">Load ERC4626</div>
+	            </div>
                 <br><br>
 
 
@@ -117,8 +113,10 @@
                     	<div class="hint">Approval: <span id="l-as-allw">-.--</span></div>
                     	<input required class="in-box" id="stake-amt" type="number" placeholder="1337" step="1" min="1">
                 	</div>
-                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(false)">Deposit</div>
-                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(true)">Deposit All</div>
+                	<div class="c2a-two-button">
+                		<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(false)">Deposit</div>
+                		<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="stake(true)">Deposit All</div>
+                	</div>
 
                 	<br><br><br><br>
                 	<div class="form-item-container">
@@ -130,8 +128,10 @@
                     	<div class="hint">Balance: <span id="l-sh-bal">-.--</span></div>
                     	<input required class="in-box" id="unstake-amt" type="number" placeholder="1337" step="1" min="1">
                 	</div>
-                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(false)">Withdraw</div>
-                	<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(true)">Withdraw All</div>
+                	<div class="c2a-two-button">
+                		<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(false)">Withdraw</div>
+                		<div type="submit" class="c2a-1 submit equal-gradient c2abtn" onclick="unstake(true)">Withdraw All</div>
+                	</div>
                 	<br><br>
 	            </div>
            	</form>
@@ -177,6 +177,7 @@
 
     <script src="https://ftm.guru/ethers-5.2.umd.min.js"></script>
     <script src="index.js"></script>
+	<script src="https://eliteness.network/bridge/allchains.js"></script>
     <script>
 
 		DOCS_LINK = "https://ftm.guru/docs/erc4626";

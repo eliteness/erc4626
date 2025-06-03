@@ -129,7 +129,16 @@ async function cw2() {
     //try{await provider.send("eth_requestAccounts", []);console.log("CWE:",e);}//await window.ethereum.enable();
 	//catch(e){console.log("CWE:",e);window.location.reload(true)}
 	console.log("doing the paints")
-	$("cw").innerHTML= `<div>Connected to your Wallet <br> ${window.ethereum.selectedAddress}</div>`
+	$("cw").innerHTML=
+		"<div>"
+		+(window.ethereum.selectedAddress).substr(0,10)
+		+"..."
+		+(window.ethereum.selectedAddress).substr(34)
+		+"</div><div class='hint'>On "
+		+Object.keys(ALL_CHAINS).filter( e => ALL_CHAINS[e].chainId == 2146)[0]??"unknown-chain"
+		+"</div>"
+	;
+	//$("cw").innerHTML= `<div>Connected to your Wallet <br> ${window.ethereum.selectedAddress}</div>`
 	//$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);
 	//if(window.ethereum.chainId==250) (new ethers.Contract("0x14ffd1fa75491595c6fd22de8218738525892101",["function getNames(address) public view returns(string[] memory)"],provider)).getNames(window.ethereum.selectedAddress).then(rn=>{if(rn.length>0){$("cw").innerHTML="hi, <span style='/*font-family:bold;font-size:1.337em*/'>"+rn[0]+"</span> 👋"}else{$("cw").innerHTML= (window.ethereum.selectedAddress).substr(0,10) +"..."+(window.ethereum.selectedAddress).substr(34);}})
 	$("cw_m").innerHTML=""
@@ -246,7 +255,7 @@ async function paintStatic(_params) {
 
 async function dexstats() {
 	if( window.ethereum.selectedAddress == null ) {
-		notice(`<h3>Welcome to the ERC4626 App</h3> Please Connect your wallet & Enter the address of the ERC4626 Vault you wish to explore.`);
+		notice(`<h3>Welcome to the ERC4626 App</h3> Please First Switch to desired chain in your Wallet Manully, Then Refresh this Page, then Connect your wallet & Enter the address of the ERC4626 Vault you wish to explore.`);
 		return;
 	}
 	let _ca = $("inp-addr").value;
