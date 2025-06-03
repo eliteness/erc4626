@@ -135,7 +135,7 @@ async function cw2() {
 		+"..."
 		+(window.ethereum.selectedAddress).substr(34)
 		+"</div><div class='hint'>On "
-		+Object.keys(ALL_CHAINS).filter( e => ALL_CHAINS[e].chainId == _chainid)[0]??"unknown-chain"
+		+Object.keys(ALL_CHAINS).filter( e => ALL_CHAINS[e].chainId == Number(window.ethereum.chainId))[0]??"unknown-chain"
 		+"</div>"
 	;
 	//$("cw").innerHTML= `<div>Connected to your Wallet <br> ${window.ethereum.selectedAddress}</div>`
