@@ -643,6 +643,9 @@ button:disabled, .c2abtn:disabled {
     position: relative;
     top:-0px
 }
+.mint-table-row .submit {
+    width: calc(100% - 20px)
+}
 
 
 
